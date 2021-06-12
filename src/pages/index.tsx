@@ -8,8 +8,11 @@ import {
   ProfissionaisPaper,
   ProfissionaisContainer,
 } from "UI/styles/pages/index.style";
+import useIndex from "data/hooks/pages/useIndex.page";
 
 export default function Home() {
+  const { cep, setCep } = useIndex();
+
   return (
     <div>
       <SafeEnvironment />
@@ -26,8 +29,12 @@ export default function Home() {
             variant={"outlined"}
             label={"Digite seu CEP"}
             fullWidth
+            value={cep}
+            onChange={(value) => setCep(value.target.value)}
           />
-          <Typography color={"error"}>CEP Inválido</Typography>
+          <Typography color={"error"}>
+            O CEP {cep} informado é Inválido
+          </Typography>
           <Button
             variant={"contained"}
             color={"secondary"}
@@ -36,39 +43,9 @@ export default function Home() {
             Buscar
           </Button>
         </FormElementsContainer>
-
+        {/* 55:18 */}
         <ProfissionaisPaper>
           <ProfissionaisContainer>
-            <UserInformation
-              picture={"Https://github.com/finotellicarlos.png"}
-              name={"Carlos"}
-              rating={3}
-              description={"São Paulo"}
-            />
-            <UserInformation
-              picture={"Https://github.com/finotellicarlos.png"}
-              name={"Carlos"}
-              rating={3}
-              description={"São Paulo"}
-            />
-            <UserInformation
-              picture={"Https://github.com/finotellicarlos.png"}
-              name={"Carlos"}
-              rating={3}
-              description={"São Paulo"}
-            />
-            <UserInformation
-              picture={"Https://github.com/finotellicarlos.png"}
-              name={"Carlos"}
-              rating={3}
-              description={"São Paulo"}
-            />
-            <UserInformation
-              picture={"Https://github.com/finotellicarlos.png"}
-              name={"Carlos"}
-              rating={3}
-              description={"São Paulo"}
-            />
             <UserInformation
               picture={"Https://github.com/finotellicarlos.png"}
               name={"Carlos"}
