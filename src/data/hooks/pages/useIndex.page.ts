@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { UserShortIrterface } from "data/@types/UserInterface";
 import { ValidationService } from "data/services/ValidationService";
+import { ApiService } from "data/services/ApiService";
 
 export default function useIndex() {
   // CEP
   const [cep, setCep] = useState("");
+  // CEP Valido
+  const cepValido = useMemo(() => {
+    return ValidationService.cep(cep);
+  }, [cep]);
   // Mensagem de Erro
   const [error, setError] = useState("");
   // Busca por endereço(CEP)
@@ -16,10 +21,37 @@ export default function useIndex() {
   // diaristas restantes
   const [others, setProfessionalsOthers] = useState(0);
 
+  async function searchProfessional(cep: string) {
+    setSearch(false);
+    setLoad(true);
+    setError("");
+
+    try {
+      const { data } = await ApiService.get<{
+        professional: UserShortIrterface[];
+        others: number;
+      }>("/api/profissional-cidade?cep=" + cep.replace(/\D/g, ""));
+
+      setProfessional(data.professional);
+      setProfessionalsOthers(data.others);
+
+      setSearch(true);
+      setLoad(false);
+    } catch (error) {
+      setError("CEP não encontrado");
+      setLoad(false);
+    }
+  }
+
   return {
     cep,
     setCep,
+    cepValido,
+    searchProfessional,
     error,
-    setError,
+    professional,
+    search,
+    load,
+    others,
   };
 }
