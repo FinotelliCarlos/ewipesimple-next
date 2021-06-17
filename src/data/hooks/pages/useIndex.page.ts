@@ -30,7 +30,7 @@ export default function useIndex() {
       const { data } = await ApiService.get<{
         professional: UserShortIrterface[];
         others: number;
-      }>("/api/profissional-cidade?cep=" + cep.replace(/\D/g, ""));
+      }>("/api/profissionais-cidade?cep=" + cep.replace(/\D/g, ""));
 
       setProfessional(data.professional);
       setProfessionalsOthers(data.others);
