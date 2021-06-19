@@ -100,7 +100,7 @@ export default function Home() {
             </ProfissionaisPaper>
           ) : (
             <Typography align={"center"} color={"textPrimary"}>
-              Nenhum profissional disponivel em sua região.
+              Ainda não temos nenhum profissional disponivel em sua região.
             </Typography>
           ))}
       </Container>
